@@ -9,6 +9,8 @@ server:
   servlet:
     context-path: /bktapi-java-2
 
+mergepdf:
+  cron: ${MERGEPDF_CRON_PARAMETER:0 59 23 * * ?}
 
 ---
 
