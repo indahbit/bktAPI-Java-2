@@ -55,7 +55,7 @@ spring:
 spring:
   config:
     activate:
-      on-profile: prod
+      on-profile: production
 
   datasource:
     url: jdbc:sqlserver://${SQL_SERVER_IP}:1433;encrypt=true;trustServerCertificate=true;databaseName=${SQL_SERVER_DATABASE}
