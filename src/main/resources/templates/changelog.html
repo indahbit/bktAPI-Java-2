@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Change Log</title>
+    <style>
+        /* CSS to make iframe responsive */
+        iframe {
+            width: 100%; /* Set width to 100% of viewport width */
+            height: 75vh; /* Set height to 50% of viewport height */
+        }
+    </style>
+</head>
+<body>
+    <h1>VA Payment Consumer Change Log</h1>
+
+    <h2>Release Notes:</h2>
+    <div style="padding-bottom: 10px">
+        <span>Config Name : <span th:text="${mstConfig.configName}"></span>, </span>
+        <span>Config Type : <span th:text="${mstConfig.configType}"></span></span>
+    </div>
+
+    <iframe th:src="${mstConfig.configValue}" style="border: 0px;"></iframe>
+</body>
+</html>
