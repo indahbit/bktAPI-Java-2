@@ -253,7 +253,7 @@ public class TandaTerimaService implements ITandaTerimaService {
 
         String subject = "Notif Merge PDF FK/SJ/FP";
 
-        externalNotificationService.sendEmailToSomebody(bodyEmail, subject, "suatu branch");
+        externalNotificationService.sendEmailToFinanceAR(bodyEmail, subject, "suatu branch");
         //endregion kirim notif ke finance untuk list job yg sukses dan gagal
     }
 
