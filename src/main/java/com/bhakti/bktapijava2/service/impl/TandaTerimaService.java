@@ -72,6 +72,7 @@ public class TandaTerimaService implements ITandaTerimaService {
             //ambil file faktur
             String folderPath = inputRootLocation + "\\pdf_scanfaktur\\" + yearAndMonthPath;
             File folderFileFaktur = new File(folderPath);
+            log.info("scan faktur path : " + folderPath);
 
             //ambil file SJ
             String sjFolderPath = inputRootLocation + "\\sj_depo\\" + yearAndMonthPath;
@@ -227,7 +228,7 @@ public class TandaTerimaService implements ITandaTerimaService {
 
                 logger.info("Sukses merging pdf");
             } else {
-                failedMergeTandaTerimaList.add(noKwitansi + " (No Faktur tidak ditemukan)");
+                failedMergeTandaTerimaList.add(noKwitansi + " (No Faktur tidak ditemukan loh)");
             }
             //endregion merge file
         }
