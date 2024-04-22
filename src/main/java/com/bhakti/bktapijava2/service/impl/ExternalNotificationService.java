@@ -26,7 +26,7 @@ public class ExternalNotificationService implements IExternalNotificationService
 
     @Override
     public void sendEmailToFinanceAR(String bodyEmail, String subject, String branch) {
-        CofEmailJob cofEmailJob = cofEmailJobCrudRepository.findByNamaJobAndAktifIsTrue("FINANCE AR")
+        CofEmailJob cofEmailJob = cofEmailJobCrudRepository.findByNamaJob("FINANCE AR")
                 .orElseThrow(() -> new GlobalHandledErrorException("Job bernama FINANCE AR pada tabel Cof_Email_Job tidak ditemukan"));
 
         LocalDateTime now = LocalDateTime.now();

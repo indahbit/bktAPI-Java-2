@@ -10,6 +10,6 @@ import java.util.Optional;
 @Repository
 public interface ICofEmailJobCrudRepository extends PagingAndSortingRepository<CofEmailJob, String>, CrudRepository<CofEmailJob, String> {
 
-    Optional<CofEmailJob> findByNamaJobAndAktifIsTrue(String namaJob);
+    Optional<CofEmailJob> findByNamaJob(String namaJob);
 
 }
