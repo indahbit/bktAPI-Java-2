@@ -73,7 +73,7 @@ public class TandaTerimaService implements ITandaTerimaService {
             String folderPath = inputRootLocation + "/pdf_scanfaktur/" + yearAndMonthPath;
             File folderFileFaktur = new File(folderPath);
             log.info(folderPath);
-            log.info("Jumlah file : " + String.valueOf(folderFileFaktur.listFiles().length));
+            log.info("Jumlah file : " + folderFileFaktur.listFiles().length);
 
             //ambil file SJ
             String sjFolderPath = inputRootLocation + "/sj_depo/" + yearAndMonthPath;
@@ -321,7 +321,7 @@ public class TandaTerimaService implements ITandaTerimaService {
         int month = tglKwitansi.getMonthValue();
         log.info(String.valueOf(year), " | " , month);
 
-        String defaultFolderPath = outputRootLocation + "\\" + folderName + "\\" + year + "\\" + month + "\\";
+        String defaultFolderPath = outputRootLocation + "/" + folderName + "/" + year + "/" + month + "/";
 //        String defaultFolderPath = "D:\\test_output_ebilling\\" + folderName + "\\2022\\12\\"; // ini cth string folder lokal
 
         File folder = new File(defaultFolderPath);
