@@ -67,19 +67,19 @@ public class TandaTerimaService implements ITandaTerimaService {
             String outputSuratJalanFolderPath = createOutputFolder(tglKwitansiLocalDate, OutputFolderModeEnum.SURAT_JALAN, outputRootLocation);
             String outputFakturPajakFolderPath = createOutputFolder(tglKwitansiLocalDate, OutputFolderModeEnum.FAKTUR_PAJAK, outputRootLocation);
 
-            String yearAndMonthPath = tglKwitansiLocalDate.getYear() + "\\" + tglKwitansiLocalDate.getMonthValue();
+            String yearAndMonthPath = tglKwitansiLocalDate.getYear() + "/" + tglKwitansiLocalDate.getMonthValue();
 
             //ambil file faktur
-            String folderPath = inputRootLocation + "\\pdf_scanfaktur\\" + yearAndMonthPath;
+            String folderPath = inputRootLocation + "/pdf_scanfaktur/" + yearAndMonthPath;
             File folderFileFaktur = new File(folderPath);
 
             //ambil file SJ
-            String sjFolderPath = inputRootLocation + "\\sj_depo\\" + yearAndMonthPath;
+            String sjFolderPath = inputRootLocation + "/sj_depo/" + yearAndMonthPath;
             File folderFileSJ = new File(sjFolderPath);
 
             //ambil file Faktur Pajak
-            String fakturPajakSparepartFolderPath = inputRootLocation + "\\pdf_efaktur\\" + yearAndMonthPath + "\\SPAREPART";
-            String fakturPajakProdukFolderPath = inputRootLocation + "\\pdf_efaktur\\" + yearAndMonthPath + "\\PRODUK";
+            String fakturPajakSparepartFolderPath = inputRootLocation + "/pdf_efaktur/" + yearAndMonthPath + "/SPAREPART";
+            String fakturPajakProdukFolderPath = inputRootLocation + "/pdf_efaktur/" + yearAndMonthPath + "/PRODUK";
             File folderFileProdukFakturPajak = new File(fakturPajakProdukFolderPath);
             File folderFileSparepartFakturPajak = new File(fakturPajakSparepartFolderPath);
 
