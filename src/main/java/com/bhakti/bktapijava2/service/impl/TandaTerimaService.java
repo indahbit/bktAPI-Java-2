@@ -72,6 +72,8 @@ public class TandaTerimaService implements ITandaTerimaService {
             //ambil file faktur
             String folderPath = inputRootLocation + "/pdf_scanfaktur/" + yearAndMonthPath;
             File folderFileFaktur = new File(folderPath);
+            log.info(folderPath);
+            log.info("Jumlah file : " + String.valueOf(folderFileFaktur.listFiles().length));
 
             //ambil file SJ
             String sjFolderPath = inputRootLocation + "/sj_depo/" + yearAndMonthPath;
