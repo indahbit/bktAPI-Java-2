@@ -15,6 +15,7 @@ import org.apache.pdfbox.multipdf.PDFMergerUtility;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -35,17 +36,23 @@ public class TandaTerimaService implements ITandaTerimaService {
     @Autowired
     private ITandaTerimaJdbcRepository tandaTerimaJdbcRepository;
 
-    @Autowired
-    private ICofTagihanKwitansiJdbcRepository cofTagihanKwitansiJdbcRepository;
+//    @Autowired
+//    private ICofTagihanKwitansiJdbcRepository cofTagihanKwitansiJdbcRepository;
 
     @Autowired
     private IExternalNotificationService externalNotificationService;
 
+    @Value("${mergepdf.input-docker-volume-name}")
+    private String inputDockerVolumeName;
+
+    @Value("${mergepdf.output-docker-volume-name}")
+    private String outputDockerVolumeName;
+
     @Override
     public void mergePdfByNoKwitansi() {
-        CofTagihanKwitansiInputOutputLocationDto pdfLocationConfig = cofTagihanKwitansiJdbcRepository.findInputAndOutputPdfPath();
-        String inputRootLocation = pdfLocationConfig.getInputKwitansiMOPdfPath();
-        String outputRootLocation = pdfLocationConfig.getOutputKwitansiMOPdfPath();
+//        CofTagihanKwitansiInputOutputLocationDto pdfLocationConfig = cofTagihanKwitansiJdbcRepository.findInputAndOutputPdfPath();
+        String inputRootLocation = "/" + inputDockerVolumeName;
+        String outputRootLocation = "/" + outputDockerVolumeName;
         List<TandaTerimaWithKdPlgAndNmPlgDTO> tandaTerimaList = getPdfNotMergedTandaTerima();
 
         // Init default value dari no tanda terima yang sukses atau gagal
@@ -72,8 +79,6 @@ public class TandaTerimaService implements ITandaTerimaService {
             //ambil file faktur
             String folderPath = inputRootLocation + "/pdf_scanfaktur/" + yearAndMonthPath;
             File folderFileFaktur = new File(folderPath);
-            log.info(folderPath);
-            log.info("Jumlah file : " + folderFileFaktur.listFiles().length);
 
             //ambil file SJ
             String sjFolderPath = inputRootLocation + "/sj_depo/" + yearAndMonthPath;

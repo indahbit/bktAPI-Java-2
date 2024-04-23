@@ -11,6 +11,8 @@ server:
 
 mergepdf:
   cron: ${MERGEPDF_CRON_PARAMETER:0 59 23 * * ?}
+  input-docker-volume-name: ${INPUT_VOLUME_NAME}
+  output-docker-volume-name: ${OUTPUT_VOLUME_NAME}
 
 ---
 
