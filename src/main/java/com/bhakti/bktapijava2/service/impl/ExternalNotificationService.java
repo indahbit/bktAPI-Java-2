@@ -11,9 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.random.RandomGenerator;
 
 @Service
 public class ExternalNotificationService implements IExternalNotificationService {
@@ -26,7 +23,7 @@ public class ExternalNotificationService implements IExternalNotificationService
 
     @Override
     public void sendEmailToFinanceAR(String bodyEmail, String subject, String branch) {
-        CofEmailJob cofEmailJob = cofEmailJobCrudRepository.findByNamaJob("FINANCE AR")
+        CofEmailJob cofEmailJob = cofEmailJobCrudRepository.findByNamaJobAndAktifIsTrue("FINANCE AR")
                 .orElseThrow(() -> new GlobalHandledErrorException("Job bernama FINANCE AR pada tabel Cof_Email_Job tidak ditemukan"));
 
         LocalDateTime now = LocalDateTime.now();
