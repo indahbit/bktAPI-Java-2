@@ -15,6 +15,7 @@ import org.apache.pdfbox.multipdf.PDFMergerUtility;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -35,17 +36,23 @@ public class TandaTerimaService implements ITandaTerimaService {
     @Autowired
     private ITandaTerimaJdbcRepository tandaTerimaJdbcRepository;
 
-    @Autowired
-    private ICofTagihanKwitansiJdbcRepository cofTagihanKwitansiJdbcRepository;
+//    @Autowired
+//    private ICofTagihanKwitansiJdbcRepository cofTagihanKwitansiJdbcRepository;
 
     @Autowired
     private IExternalNotificationService externalNotificationService;
 
+    @Value("${mergepdf.input-docker-volume-name}")
+    private String inputDockerVolumeName;
+
+    @Value("${mergepdf.output-docker-volume-name}")
+    private String outputDockerVolumeName;
+
     @Override
     public void mergePdfByNoKwitansi() {
-        CofTagihanKwitansiInputOutputLocationDto pdfLocationConfig = cofTagihanKwitansiJdbcRepository.findInputAndOutputPdfPath();
-        String inputRootLocation = pdfLocationConfig.getInputKwitansiMOPdfPath();
-        String outputRootLocation = pdfLocationConfig.getOutputKwitansiMOPdfPath();
+//        CofTagihanKwitansiInputOutputLocationDto pdfLocationConfig = cofTagihanKwitansiJdbcRepository.findInputAndOutputPdfPath();
+        String inputRootLocation = "/" + inputDockerVolumeName;
+        String outputRootLocation = "/" + outputDockerVolumeName;
         List<TandaTerimaWithKdPlgAndNmPlgDTO> tandaTerimaList = getPdfNotMergedTandaTerima();
 
         // Init default value dari no tanda terima yang sukses atau gagal
@@ -67,19 +74,19 @@ public class TandaTerimaService implements ITandaTerimaService {
             String outputSuratJalanFolderPath = createOutputFolder(tglKwitansiLocalDate, OutputFolderModeEnum.SURAT_JALAN, outputRootLocation);
             String outputFakturPajakFolderPath = createOutputFolder(tglKwitansiLocalDate, OutputFolderModeEnum.FAKTUR_PAJAK, outputRootLocation);
 
-            String yearAndMonthPath = tglKwitansiLocalDate.getYear() + "\\" + tglKwitansiLocalDate.getMonthValue();
+            String yearAndMonthPath = tglKwitansiLocalDate.getYear() + "/" + tglKwitansiLocalDate.getMonthValue();
 
             //ambil file faktur
-            String folderPath = inputRootLocation + "\\pdf_scanfaktur\\" + yearAndMonthPath;
+            String folderPath = inputRootLocation + "/pdf_scanfaktur/" + yearAndMonthPath;
             File folderFileFaktur = new File(folderPath);
 
             //ambil file SJ
-            String sjFolderPath = inputRootLocation + "\\sj_depo\\" + yearAndMonthPath;
+            String sjFolderPath = inputRootLocation + "/sj_depo/" + yearAndMonthPath;
             File folderFileSJ = new File(sjFolderPath);
 
             //ambil file Faktur Pajak
-            String fakturPajakSparepartFolderPath = inputRootLocation + "\\pdf_efaktur\\" + yearAndMonthPath + "\\SPAREPART";
-            String fakturPajakProdukFolderPath = inputRootLocation + "\\pdf_efaktur\\" + yearAndMonthPath + "\\PRODUK";
+            String fakturPajakSparepartFolderPath = inputRootLocation + "/pdf_efaktur/" + yearAndMonthPath + "/SPAREPART";
+            String fakturPajakProdukFolderPath = inputRootLocation + "/pdf_efaktur/" + yearAndMonthPath + "/PRODUK";
             File folderFileProdukFakturPajak = new File(fakturPajakProdukFolderPath);
             File folderFileSparepartFakturPajak = new File(fakturPajakSparepartFolderPath);
 
@@ -319,7 +326,7 @@ public class TandaTerimaService implements ITandaTerimaService {
         int month = tglKwitansi.getMonthValue();
         log.info(String.valueOf(year), " | " , month);
 
-        String defaultFolderPath = outputRootLocation + "\\" + folderName + "\\" + year + "\\" + month + "\\";
+        String defaultFolderPath = outputRootLocation + "/" + folderName + "/" + year + "/" + month + "/";
 //        String defaultFolderPath = "D:\\test_output_ebilling\\" + folderName + "\\2022\\12\\"; // ini cth string folder lokal
 
         File folder = new File(defaultFolderPath);
