@@ -9,6 +9,10 @@ server:
   servlet:
     context-path: /bktapi-java-2
 
+mergepdf:
+  cron: ${MERGEPDF_CRON_PARAMETER:0 59 23 * * ?}
+  input-docker-volume-name: ${INPUT_DOCKER_VOLUME_NAME}
+  output-docker-volume-name: ${OUTPUT_DOCKER_VOLUME_NAME}
 
 ---
 
@@ -53,7 +57,7 @@ spring:
 spring:
   config:
     activate:
-      on-profile: prod
+      on-profile: production
 
   datasource:
     url: jdbc:sqlserver://${SQL_SERVER_IP}:1433;encrypt=true;trustServerCertificate=true;databaseName=${SQL_SERVER_DATABASE}
